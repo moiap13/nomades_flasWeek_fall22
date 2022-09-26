@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Bonjour tout le monde</title>
+    </head>
+    <body>
+        <h1>Bonjour tout le Monde !!</h1>
+
+        <ul>
+            {% for p in pizza %}
+                {% if p is string(): %}
+                    <li>{{p | safe}}</li>
+                {%  endif   %}
+            {% endfor %}
+        </ul>
+    </body>
+</html>
