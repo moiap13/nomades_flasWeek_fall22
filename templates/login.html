@@ -1,0 +1,16 @@
+{%extends 'base.html'%}
+{%block content%}
+<form action="#" method="POST">
+    <div class="form-group">
+        <label for="uName">Username</label>
+        <input type="text" name="uName" id="uName" required placeholder="username"/>
+    </div>
+    <div class="form-group">
+        <label for="uPwd">Password</label>
+        <input type="password" name="uPwd" id="uPwd" placeholder="password"/>
+    </div>
+    <div class="form-group">
+        <input type="submit" name="btnSubmit" value="S'enregistrer" />
+    </div>
+</form>
+{%endblock%}

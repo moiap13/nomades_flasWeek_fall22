@@ -4,6 +4,10 @@
 {%endblock%}
 
 {%block content%}
-    <h1>Bonjour tout le monde!!</h1>
+    {% if login%}
+        <h1>Bonjour à toi !!</h1>
+    {% else %}
+        <h1>Bonjour tout le monde!!</h1>
+    {% endif%}
     <a href="https://github.com/moiap13/nomades_flaskWeek_fall22">Lien git</a>
 {%endblock %}
