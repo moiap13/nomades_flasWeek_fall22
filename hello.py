@@ -1,5 +1,7 @@
 from tokenize import String
 from flask import Flask, render_template, url_for, session, request
+import csv
+
 
 #creation d'une instance flask
 app = Flask(__name__)
@@ -24,6 +26,12 @@ def user(name:String, age:int):
 def enregistrer():
     if request.method == "POST":
         print(request.form["uName"])
+
+        with open('innovators.csv', 'r') as file:
+            reader = csv.reader(file)
+            for row in reader:
+                print(row)
+
         #TODO: ouvrir un fichier (/static/user.csv)
         #TODO: Verifier si l'utilisateur existe
         #TODO: Si l'utilisateur existe renvoyer a la page index
