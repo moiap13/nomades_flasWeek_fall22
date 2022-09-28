@@ -3,14 +3,14 @@
 <form action="#" method="POST">
     <div class="form-group">
         {{form.uName.label}}
-        {{form.uName(id="test", placeholder="username", class="red")}}
+        {{form.uName(placeholder="username")}}
     </div>
     <div class="form-group">
-        <label for="uPwd">Password</label>
-        <input type="password" name="uPwd" id="uPwd" placeholder="password"/>
+        {{form.uPwd.label}}
+        {{form.uPwd(placeholder="password")}}
     </div>
     <div class="form-group">
-        <input type="submit" name="btnSubmit" value="S'enregistrer" />
+        {{form.btnSubmit(value="Login")}}
     </div>
 </form>
 {%endblock%}

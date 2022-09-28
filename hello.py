@@ -1,3 +1,4 @@
+from curses import flash
 from email.policy import default
 from fileinput import filename
 from tokenize import String
@@ -6,7 +7,8 @@ from flask import Flask, render_template, url_for, session, request, redirect
 from wtforms import Form, StringField, SubmitField, PasswordField, validators
 import csv
 import os
-
+from passlib.hash import sha256_crypt
+from functools import wraps
 
 #creation d'une instance flask
 app = Flask(__name__)
@@ -21,9 +23,11 @@ class UserLogin(Form):
 #creation d'une route pour index
 @app.route("/")
 def index():
-    login = "uid" in session
+    loggedText:String = "Accès interdit"
+    if session.get("loggedin") and session["loggedin"]:
+        loggedText = "Bienvenue"
 
-    return render_template("index.html", login=login)
+    return render_template("index.html", login=login, loggedText=loggedText)
 
 @app.route("/user/<name>/<age>")
 def user(name:String, age:int):
@@ -39,6 +43,7 @@ def enregistrer():
     if request.method == "POST":
         uname:String = request.form["uName"]
         upwd:String = request.form["uPwd"]
+        #epwd = sha256_crypt.encrypt(upwd)
         add:Boolean = True
         userFile = os.path.join(app.static_folder, 'user.csv')
         
@@ -52,26 +57,39 @@ def enregistrer():
                     add = False
                     break
             if add:
-                file.write("{};{}\n".format(uname, upwd))
+                file.write("{};{}\n".format(uname, epwd))
 
     return render_template("enregistrer.html")
 
 @app.route("/login/", methods=["GET", "POST"])
 def login():
     loginForm = UserLogin(request.form)
+    if request.method == "POST":
+        username:String = loginForm.uName.data
+        password:String = loginForm.uPwd.data
 
-    if(request.method == "POST"):
-        print(loginForm.uName.data)
+        userFile = os.path.join(app.static_folder, 'user.csv')
+
+        with open(userFile, "r") as file:
+            reader = csv.reader(file, delimiter=";")
+            for row in reader:
+                if row[0] == username and row[1] == password:
+                    session["uid"] = username
+                    session["loggedin"] = True
+                    return redirect(url_for('index'))
+
     return render_template("loginwtf.html", form=loginForm)
 
 @app.route("/logout/", methods=["GET"])
 def logout():
-    session.pop("uid", default=None)
+    session.clear()
     return redirect("/")
 
 @app.route("/secret/")
+#@is_logged_in
 def secret():
-    if not "uid" in session:
-        return "Vous n'avez pas acces !"
-    else:
-        return "Bienvennue dans la aprtie protégée du site :)"
+    return "<h1>Bienvennue dans la partie interdite</h1>"
+
+#running the APP
+if __name__ =='__main__':
+    app.run(debug=True, host="0.0.0.0", port=13225)
