@@ -9,10 +9,24 @@ import csv
 import os
 from passlib.hash import sha256_crypt
 from functools import wraps
+import firebase_admin
+from firebase_admin import credentials, firestore
 
 #creation d'une instance flask
 app = Flask(__name__)
 app.secret_key = "secret"
+
+
+def is_logged_in(f):
+    @wraps(f)
+    def decorated_func(*args,**kwargs):
+        if session.get("loggedin") and session["loggedin"]:
+            return f(*args,**kwargs)
+        else:
+            return redirect(url_for("login"))
+    return decorated_func
+
+
 
 # creation d'une classe de formulaire pour le login
 class UserLogin(Form):
@@ -29,6 +43,7 @@ def index():
 
     return render_template("index.html", login=login, loggedText=loggedText)
 
+
 @app.route("/user/<name>/<age>")
 def user(name:String, age:int):
     #return "<h2>Bonjour {}</h2>".format(name.capitalize())
@@ -43,7 +58,7 @@ def enregistrer():
     if request.method == "POST":
         uname:String = request.form["uName"]
         upwd:String = request.form["uPwd"]
-        #epwd = sha256_crypt.encrypt(upwd)
+        epwd = sha256_crypt.encrypt(upwd)
         add:Boolean = True
         userFile = os.path.join(app.static_folder, 'user.csv')
         
@@ -81,12 +96,13 @@ def login():
     return render_template("loginwtf.html", form=loginForm)
 
 @app.route("/logout/", methods=["GET"])
+@is_logged_in
 def logout():
     session.clear()
     return redirect("/")
 
 @app.route("/secret/")
-#@is_logged_in
+@is_logged_in
 def secret():
     return "<h1>Bienvennue dans la partie interdite</h1>"
 
