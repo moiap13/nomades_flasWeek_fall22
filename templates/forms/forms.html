@@ -1,0 +1,30 @@
+{%extends 'base.html'%}
+
+{%block title%}Login{%endblock%}
+
+{%block content%}
+
+<form action="#" method="POST">
+
+    {{ afficherInput(form.uNom, class="form-control", value="anto") }}
+    {{ afficherInput(form.uSexe, class="form-control") }}
+    {{ afficherInput(form.uAPropos, class="form-control") }}
+    {{ afficherInput(form.uMdp, class="form-control") }}
+    {{ afficherInput(form.uMdpConfirmation, class="form-control") }}
+    {{ afficherInput(form.uConnecter, class="form-control") }}
+    {{ afficherInput(form.uAnniversaire, class="form-control", type="date") }}
+    {{ afficherInput(form.uEmail, class="form-control") }}
+    {{ afficherInput(form.uHidden, class="form-control") }}
+    {{ afficherInput(form.uIntegerRange, class="form-control") }}
+    {{ afficherInput(form.uRadio) }}
+    
+    <div class="form-group">
+        {{form.btnSubmit(class="form-control")}}
+    </div>
+</form>
+<script>
+    if({{error | lower}}){
+        alert("Login failed")
+    }
+</script>
+{%endblock%}

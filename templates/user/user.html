@@ -4,5 +4,12 @@
 {%endblock%}
 
 {%block content%}
-    <h1>Bonjour {{ ctx.name | lower }} - {{ctx["age"]}}!!</h1>
+    <h1>Bonjour {{ ctx.uid }}!!</h1>
+    <h3>Bienvenue sur votre page personnelle</h3>
+
+    <table>
+        <tr><td>Username : </td><td>{{ctx.uid}}</td></tr>
+        <tr><td colspan="2"><a href="{{url_for('usermodification')}}">Modifier mes infos</a></td></tr>
+        <tr><td colspan="2"><a href="{{url_for('userdelete')}}">Supprimer mon compte</a></td></tr>
+    </table>
 {%endblock %}

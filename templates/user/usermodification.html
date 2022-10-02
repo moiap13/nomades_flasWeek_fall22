@@ -1,0 +1,22 @@
+{%extends 'base.html'%}
+{%block title%}Login{%endblock%}
+{%block content%}
+<form action="#" method="POST">
+    <div class="form-group">
+        {{ctx.form.uName.label}}
+        {{ctx.form.uName(value=ctx.uid)}}
+    </div>
+    <div class="form-group">
+        {{ctx.form.uPwd.label}}
+        {{ctx.form.uPwd(value=ctx.pwd)}}
+    </div>
+    <div class="form-group">
+        {{ctx.form.btnSubmit(value="Modifier mes infos")}}
+    </div>
+</form>
+<script>
+    if({{error | lower}}){
+        alert("Login failed")
+    }
+</script>
+{%endblock%}

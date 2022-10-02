@@ -1,0 +1,13 @@
+{% macro afficherInput(field, showErrors="true") %}
+    <div class="form-group">
+        {{field.label}}
+        {{field(**kwargs) | safe}}
+        {% if showErrors=="true" and field.errors %}
+            <div class="invalid-feedback">">
+                {% for error in field.errors %}
+                    <span class="help-inline">{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+{% endmacro %}
