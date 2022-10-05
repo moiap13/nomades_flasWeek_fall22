@@ -1,0 +1,13 @@
+{%extends 'includes/base.html'%}
+{%block content%}
+{% from "includes/_formhelpers.html" import afficherInput %}
+<form action="#" method="POST">
+    {{ afficherInput(form.uid, class="form-control") }}
+    {{ afficherInput(form.email, class="form-control") }}
+    {{ afficherInput(form.pwd, class="form-control") }}
+    
+    <div class="form-group">
+        {{form.btnSubmit()}}
+    </div>
+</form>
+{%endblock%}

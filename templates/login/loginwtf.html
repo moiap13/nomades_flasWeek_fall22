@@ -1,0 +1,26 @@
+{%extends 'includes/base.html'%}
+{%block title%}Login{%endblock%}
+{%block content%}
+{% from "includes/_formhelpers.html" import afficherInput %}
+<form action="#" method="POST">
+    {{ afficherInput(form.uid, class="form-control") }}
+    {{ afficherInput(form.pwd, class="form-control") }}
+    
+    <div class="form-group">
+        {{form.btnSubmit()}}
+    </div>
+
+    <div class="form-group">
+        <a href="{{ url_for('login.register') }}">Register</a>
+    </div>
+
+    <div class="form-group">
+        <a href="{{ url_for('reset_pwd') }}">Password forgot</a>
+    </div>
+</form>
+<script>
+    if({{error | lower}}){ // True != true
+        alert("Login failed")
+    }
+</script>
+{%endblock%}

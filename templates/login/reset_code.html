@@ -1,0 +1,13 @@
+{%extends 'includes/base.html'%}
+{%block title%}Reset Password Code{%endblock%}
+{%block content%}
+{% from "includes/_formhelpers.html" import afficherInput %}
+<form action="#" method="POST">
+    {{ afficherInput(form.email, class="form-control", value=email) }}
+    {{ afficherInput(form.code, class="form-control") }}
+    
+    <div class="form-group">
+        {{form.btnSubmit()}}
+    </div>
+</form>
+{%endblock%}

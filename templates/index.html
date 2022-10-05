@@ -1,4 +1,4 @@
-{%extends 'base.html'%}
+{%extends 'includes/base.html'%}
 {%block title%}
     Index
 {%endblock%}
@@ -6,4 +6,21 @@
 {%block content%}
     <h1>{{loggedText}}</h1>
     <a href="https://github.com/moiap13/nomades_flaskWeek_fall22">Lien git</a>
+
+    <h1>Posts</h1>
+    <table class="table table-striped">
+        <tr>
+        <th>Titre</th>
+        <th>Auteurs</th>
+        <th></th>
+        <th></th>
+        </tr>
+        {% for post in posts %}
+        <tr>
+            <td><a href="post/{{post}}">{{posts[post].titre}}  </a></td>
+            <td>{{posts[post].uid}}</td>
+        </tr>
+        
+        {% endfor %}
+    </table>
 {%endblock %}

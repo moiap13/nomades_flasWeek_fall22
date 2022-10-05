@@ -1,4 +1,4 @@
-{%extends 'base.html'%}
+{%extends 'includes/base.html'%}
 {%block title%}
     User
 {%endblock%}
@@ -8,8 +8,9 @@
     <h3>Bienvenue sur votre page personnelle</h3>
 
     <table>
-        <tr><td>Username : </td><td>{{ctx.uid}}</td></tr>
-        <tr><td colspan="2"><a href="{{url_for('usermodification')}}">Modifier mes infos</a></td></tr>
-        <tr><td colspan="2"><a href="{{url_for('userdelete')}}">Supprimer mon compte</a></td></tr>
+        <tr><td>Username</td><td>: {{ctx.uid}}</td></tr>
+        <tr><td>E-mail </td><td>: {{ctx.email}}</td></tr>
+        <tr><td colspan="2"><a href="{{url_for('user.usermodification')}}">Modifier mes infos</a></td></tr>
+        <tr><td colspan="2"><a href="{{url_for('user.userdelete')}}">Supprimer mon compte</a></td></tr>
     </table>
 {%endblock %}

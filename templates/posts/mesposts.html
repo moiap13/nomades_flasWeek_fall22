@@ -1,4 +1,4 @@
-{%extends 'base.html'%}
+{%extends 'includes/base.html'%}
 
 {%block content%}
 <h1>Bienvenue {{session['username']}}</h1>
@@ -15,10 +15,10 @@
         </tr>
         {% for post in posts %}
           <tr>
-            <td>{{posts[post].title}}</td>
-            <td>{{posts[post].body}}</td>
+            <td>{{posts[post].titre}}</td>
+            <td>{{posts[post].corps}}</td>
             <td>
-              <form action="{{url_for('delete_article', id=article)}}" method="post">
+              <form action="{{url_for('posts.delete_article', id=post)}}" method="post">
                 <input type="hidden" name="_method" value="DELETE">
                 <input type="submit" value="Delete" class="btn btn-danger">
               </form>

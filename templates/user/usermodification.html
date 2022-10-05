@@ -1,22 +1,14 @@
-{%extends 'base.html'%}
+{%extends 'includes/base.html'%}
 {%block title%}Login{%endblock%}
 {%block content%}
+{% from "includes/_formhelpers.html" import afficherInput %}
 <form action="#" method="POST">
+    {{ afficherInput(ctx.form.uid, class="form-control", value=session["uid"] ) }}
+    {{ afficherInput(ctx.form.email, class="form-control", value=session["email"]) }}
+    {{ afficherInput(ctx.form.pwd, class="form-control") }}
+    
     <div class="form-group">
-        {{ctx.form.uName.label}}
-        {{ctx.form.uName(value=ctx.uid)}}
-    </div>
-    <div class="form-group">
-        {{ctx.form.uPwd.label}}
-        {{ctx.form.uPwd(value=ctx.pwd)}}
-    </div>
-    <div class="form-group">
-        {{ctx.form.btnSubmit(value="Modifier mes infos")}}
+        {{ctx.form.btnSubmit()}}
     </div>
 </form>
-<script>
-    if({{error | lower}}){
-        alert("Login failed")
-    }
-</script>
 {%endblock%}
