@@ -17,7 +17,7 @@
         </tr>
         {% for post in posts %}
         <tr>
-            <td><a href="post/{{post}}">{{posts[post].titre}}  </a></td>
+            <td><a href="{{ url_for('posts.postview', id=post) }}">{{posts[post].titre}}  </a></td>
             <td>{{posts[post].uid}}</td>
         </tr>
         

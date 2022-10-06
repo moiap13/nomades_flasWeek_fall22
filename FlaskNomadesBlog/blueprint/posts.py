@@ -7,9 +7,9 @@ from FlaskNomadesBlog.schema import Posts
 
 Myposts = Blueprint('posts', __name__, template_folder='templates', static_folder='static', static_url_path='assets')
 
-@Myposts.route('/poster',methods=['POST','GET'])
+@Myposts.route('/post/',methods=['POST','GET'])
 @is_logged_in
-def poster():
+def post():
     form=FormArticle(request.form)
     if request.method =='POST':
         t=form.titre.data
@@ -18,26 +18,26 @@ def poster():
         a = Posts(t,c,session['uid'])
         insertDb(u'posts', None, a.todict())
         flash('Article crée', 'success')
-        return redirect(url_for('posts.mesposts'))
+        return redirect(url_for('posts.myposts'))
 
 
-    return render_template('posts/poster.html',form=form)
+    return render_template('posts/post.html',form=form)
 
-@Myposts.route('/mesposts')
+@Myposts.route('/myposts/')
 @is_logged_in
-def mesposts():
+def myposts():
         posts=getDocumentsWhere(u'posts', u'uid', u'==', session['uid'])
-        return render_template('posts/mesposts.html',posts=posts)
+        return render_template('posts/myposts.html',posts=posts)
 
-@Myposts.route('/delete_article/<string:id>', methods=['POST'])
+@Myposts.route('/delete_post/<string:id>', methods=['POST'])
 @is_logged_in
-def delete_article(id):
+def delete_post(id):
     deleteDB(u'posts', id)
     flash('Article Deleted', 'success')
 
-    return redirect(url_for('posts.mesposts'))
+    return redirect(url_for('posts.myposts'))
 
 @Myposts.route('/post/<string:id>/')
-def article(id):
+def postview(id):
     post=getDocumentDB(u'posts',id)
-    return render_template('posts/post.html',post=post)
+    return render_template('posts/postview.html',post=post)

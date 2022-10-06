@@ -1,10 +1,17 @@
-{% extends 'includes/base.html' %}
+{%extends 'includes/base.html'%}
 
-{% block content %}
-    <h1>{{post.titre}}</h1>
-    <small>Written by {{post.uid}}</small>
-    <hr>
-    <div>
-    {{post.corps | safe}}
+{%block content%}
+<div>
+    <h1>Add your articles</h1>
+        {% from "includes/_formhelpers.html" import afficherInput %}
+        <form method="POST" action="">
+          <div class="form-group">
+            {{afficherInput(form.titre, class_="form-control")}}
+          </div>
+          <div class="form-group">
+            {{afficherInput(form.corps, class_="form-control", id="editor")}}  
+          <p><input type="submit" class="btn btn-primary" value="Submit"></p>
+        </form>
     </div>
-{% endblock %}
+
+{%endblock%}
