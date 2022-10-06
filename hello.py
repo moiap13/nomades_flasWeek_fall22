@@ -1,14 +1,10 @@
 #!/Users/antoniopisanello/Desktop/tmp2/nomades_flaskWeek_fall22/flask_week/bin/python
 from curses.ascii import US
-import hashlib
 import re
 import string
 from tokenize import String
-from flask import Flask, render_template, url_for, session, request, redirect, jsonify, flash
+from flask import Flask, render_template, url_for, session, request, redirect, flash
 from pytz import utc
-from requests import post
-from wtforms import Form, StringField, SubmitField, PasswordField, validators, TextAreaField
-from wtforms.widgets import PasswordInput
 from datetime import datetime, timedelta
 
 from flask_mail import Mail, Message
@@ -23,7 +19,6 @@ from FlaskNomadesBlog.blueprint.test_blueprint import test_bp
 from FlaskNomadesBlog.blueprint.login import Mylogin
 from FlaskNomadesBlog.blueprint.user import Myuser
 from FlaskNomadesBlog.blueprint.posts import Myposts
-from FlaskNomadesBlog.schema import Posts, User
 
 #creation d'une instance flask
 app = Flask(__name__)
@@ -38,7 +33,7 @@ admin_mail = 'antonionomades@gmail.com'
 app.config['MAIL_SERVER']='smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USERNAME'] = admin_mail
-app.config['MAIL_PASSWORD'] = 'axdaizgyaoacwndj'
+app.config['MAIL_PASSWORD'] = 'Your password'
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 
@@ -47,24 +42,6 @@ mail = Mail(app)
 #creation d'une route pour index
 @app.route("/")
 def index():
-    """tdict = {}
-    t_temp = test_collection.document("docIdTest").get()
-    print(t_temp.to_dict()["testPrenom"])
-    if t_temp.exists:
-        #tdict[t_temp.id] = t_temp.to_dict()
-        tdict = t_temp.to_dict()["testPrenom"]
-    else:
-        tdict = "No documents found with id"
-    
-    return tdict"""
-
-    
-    """data={}
-    docs = db.collection(u'test').where(u"uid", u"==", "antoage").get()
-    for doc in docs:
-        data[doc.id] =doc.to_dict()
-    return data"""
-
     loggedText:String = "Accès interdit"
     if session.get("loggedin") and session["loggedin"]:
         loggedText = "Bienvenue"
@@ -161,8 +138,6 @@ def reset_pwd_code(email):
         
         flash('User not found', 'danger')
     return render_template("login/reset_code.html", form=resetForm, email=email)
-
-
 
 #running the APP
 if __name__ =='__main__':
